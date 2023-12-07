@@ -1,0 +1,59 @@
+/* Orange Theme CSS */
+
+/* Header background */
+.navbar {
+    background-color: #ff7f50 !important; /* This sets the header to an orange color */
+}
+
+/* Navbar brand logo */
+.navbar .navbar-brand {
+    color: #ffffff; /* Sets the color of the brand text to white */
+}
+
+/* Navbar text color */
+.navbar .navbar-nav .nav-link {
+    color: #ffffff !important; /* Ensures that the text color is white */
+}
+
+/* Navbar link hover effect */
+.navbar .navbar-nav .nav-link:hover {
+    background-color: #ffa07a !important; /* A lighter orange for hover state */
+}
+
+/* Navbar toggler icon color */
+/* .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+} */
+
+/* Dropdown menu styling */
+/* .navbar .dropdown-menu {
+    background-color: white;
+    opacity: 0.9;
+} */
+
+.navbar .dropdown-item {
+    color: black;
+}
+
+.navbar .dropdown-item:hover {
+    background-color: #ffa07a;
+}
+
+/* Button color */
+.btn-primary {
+    background-color: #ff7f50 !important;
+    border-color: #ff7f50 !important;
+}
+
+/* Button hover effect */
+.btn-primary:hover {
+    background-color: #ffa07a !important;
+    border-color: #ffa07a !important;
+}
+
+/* Footer color */
+footer {
+    background-color: #ff7f50;
+    color: #ffffff;
+}
+

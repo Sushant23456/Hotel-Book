@@ -1,0 +1,280 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #001F3F;
+    background-color: #FAF3E0; 
+    margin: 0;
+}
+
+.background-container {
+    background-image: url("../images/hotel.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 100%;
+    position: relative;
+    opacity: 1;
+    box-shadow: 0 0 30px rgba(0, 0.3, 0.3, 0.6);
+}
+
+.deals-container {
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 10%;
+    background-color: #001F3F;
+    width: 75%;
+    margin: 0 auto;
+    border-radius: 10px;
+    margin-top: 40px;
+
+}
+
+.deals-container h2 {
+    color:#FFD700; 
+    text-align: center;
+    width: 100%;
+}
+
+/* .hotel-listing-container {
+    background-color: #fff;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px);
+}
+
+header {
+    background-color: #001F3F;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    position: relative; 
+    width: 100%; 
+    margin: 0 auto; 
+}
+
+.logo img {
+    width: 70px;
+    height: 70px; 
+    margin-left: 100px;
+    border-radius: 5px;
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    padding: 0 5%; 
+    
+}
+ 
+nav ul {
+    order: 1; 
+    flex: 1;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 50px 0 0;
+}
+
+nav li {
+    margin: 0 10px;
+}
+
+nav a {
+    padding: 10px 20px; 
+    color: #FFD700;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, background-color 0.3s;
+    border-radius: 4px;
+}
+
+nav a:hover {
+    background-color: #FFD700; 
+    color: #001F3F;
+}
+
+nav a.active {
+    border-bottom: 3px solid #FFD700; 
+}
+
+.nav-links {
+    order: 1; 
+    flex: 1;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    margin-right: auto;
+    max-width: 600px;
+}
+
+
+.auth-links {
+    order: 2; 
+    display: flex;
+    margin-left: auto;
+}
+
+nav a.login, nav a.register {
+    margin-left: 10px; /* Adds some space between the Login and Register links */
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+nav a.register{
+    background-color: white;
+    color: #001F3F;
+}
+
+
+.container {
+    background-color: #FAF3E0;
+    color: #001F3F;
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
+    margin-top: 200px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="date"] {
+    width: 90%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #004d40;
+}
+
+button {
+    display: block;
+    width: 80%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FFD700;
+    color: #001F3F;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button:hover {
+    background-color: #FF6B6B;  
+}
+
+.hotel-deal {
+    flex-basis: 20%;
+    margin: 1rem 0;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    background-color: #FAF3E0; 
+    border-radius: 10px;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.hotel-deal img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.hotel-deal h3 {
+    margin-top: 1rem;
+    color: #001F3F;
+}
+
+.hotel-deal p {
+    color: #001F3F;
+}
+
+.hotel-deal:hover {
+    transform: scale(1.05);
+}
+
+.forgot-password{
+    margin-top: 20px;
+}
+
+footer {
+    background-color: #001F3F;
+    margin-top: 100px;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    position: relative; 
+    color:#FFD700; 
+}
+
+.account-links {
+    order: 2; 
+    display: flex;
+    margin-left: auto;
+    width: 200px;
+    display: inline-block;
+    margin-top: -15px;
+
+  }
+  
+  .account-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-left: 12px;
+    margin-top: 10px;
+    border-radius: 5px;
+
+  }
+  
+  .account-dropdown a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .account-dropdown a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .show {display: block;}
+  

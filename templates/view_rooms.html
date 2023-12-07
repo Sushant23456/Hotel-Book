@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Room Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/static/css/orange_theme.css">
+    <link rel="stylesheet" href="/static/css/view_rooms.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="/static/images/logo.png" alt="logo" style="height: 50px; width: 50px;">
+                </a>
+                <div class="account-links ml-auto">
+                    {% if username %}
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            style="background-color: white; color: black; opacity: 0.7;">
+                            {{ username }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ url_for('bookings') }}">View my Bookings</a>
+                            <a class="dropdown-item" href="{{ url_for('edit_account') }}">Edit Account</a>
+                            <a class="dropdown-item" href="{{ url_for('logout') }}">Log Out</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-secondary">Sign Up</a>
+                    {% endif %}
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="{{ url_for('search_page') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('check_booking') }}">Find Booking</a></li>
+                        <li class="nav-item"><a class="nav-link" href="rooms.html">Types of Rooms</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <div class="hotel-photo-gallery swiper-container mb-4">
+            <div class="swiper-wrapper">
+                {% for image in room_images %}
+                <div class="swiper-slide">
+                    <img src="{{ url_for('static', filename=image) }}" alt="Room image" class="room-image img-fluid">
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+        <h1 class="text-center mb-4">Rooms Available</h1>
+
+        <div class="row">
+            {% for room in rooms %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename=room.image_path) }}" class="card-img-top" alt="Room image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ room.type }}</h5>
+                        <hr>
+                        <p class="card-text">{{ room.description }}</p>
+                        <hr>
+                        <ul class="list-unstyled">
+                            {% for amenity in room.amenities.split(',') %}
+                            <li>{{ amenity }}</li>
+                            {% endfor %}
+                        </ul>
+                        <hr>
+                        <p>Size: {{ room.size }}</p>
+                        <hr>
+                        <p>Price: ${{ room.price }}</p>
+                        {% if room.discount %}
+                        <p class="text-danger">Discounted Price: ${{ "%.2f"|format(room.price - room.discount) }}</p>
+                        {% endif %}
+                        <a href="{{ url_for('reserve_options', room_id=room.id, checkin_date=checkin_date, checkout_date=checkout_date) }}" class="btn btn-primary reserve-button">Reserve</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12">
+                <p class="text-center">No rooms available for this hotel.</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="modal fade" id="loginOrGuestModal" tabindex="-1" role="dialog" aria-labelledby="loginOrGuestModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginOrGuestModalLabel">Booking Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Please log in to continue or proceed as a guest.
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{ url_for('login') }}" class="btn btn-primary">Log In</a>
+                        <button type="button" class="btn btn-secondary" onclick="continueAsGuest()">Continue as Guest</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="text-center p-3" style="background-color: #ff7f50;">
+            &copy; 2023 Hotel S&P. All rights reserved.
+        </div>
+    </footer>
+
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBezlFz7jdJDo_E-Y1sUzpL8l6ckYyyNFY&callback=initMap" async defer></script>
+
+
+    <script>
+        var gallerySwiper = new Swiper('.hotel-photo-gallery', {
+
+        }); 
+
+
+    </script>
+
+    <style>
+    .reserve-button {
+    width: 80%;
+    margin: 0 auto; 
+    display: block; 
+    margin-top: 50px;
+}
+
+.card-body{
+    text-align: center;
+}
+
+
+
+    </style>
+</body>
+
+</html>
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Room Details</title>
+    <link rel="stylesheet" href="/static/css/view_rooms.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> 
+</head>
+
+<body>
+    <header>
+
+    </header>
+
+    <main>
+    
+        <div class="hotel-photo-gallery swiper-container">
+            <div class="swiper-wrapper">
+                
+                {% for image in room_images %}
+                <div class="swiper-slide">
+                    <img src="{{ url_for('static', filename=room.image_path) }}" alt="Room image" class="room-image">
+                </div>
+                {% endfor %}
+            </div>
+      
+            <div class="swiper-pagination"></div>
+           
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+        <h1>Rooms Available</h1>
+
+        <div class="room-listings">
+            {% for room in rooms %}
+            <div class="room">
+                <div class="room-details">
+                    <p>Check-in Date: {{ checkin_date }}</p>
+                    <p>Check-out Date: {{ checkout_date }}</p>
+                    <h2>{{ room.type }}</h2>
+                    <p>{{ room.description }}</p>
+                    <p>{{ room.size }}</p>
+                    <ul>
+                        {% for amenity in room.amenities.split(',') %}
+                        <li>{{ amenity }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="room-booking">
+                    <span class="price">${{ room.price }}</span>
+                    {% if room.discount %}
+                    <span class="discount-price">Discounted Price: ${{ "%.2f"|format(room.price - room.discount) }}</span>
+                    {% endif %}
+                
+                
+
+                </div>
+                {% if room.image_path %}
+                <div class="room-image">
+                    <img src="{{ url_for('static', filename=room.image_path) }}" alt="Room image">
+                </div>
+                <a href="{{ url_for('booking_form', room_id=room.id, checkin_date=checkin_date, checkout_date=checkout_date) }}" class="reserve-button">Reserve</a>
+
+                {% endif %}
+            </div>
+            {% else %}
+            <p>No rooms available for this hotel.</p>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>
+
+    </footer>
+
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+ 
+        var gallerySwiper = new Swiper('.hotel-photo-gallery', {
+            slidesPerView: 1,
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+
+            autoplay: {
+                delay: 5000,
+            },
+
+            breakpoints: {
+
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                // when window width is >= 640px
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                },
+    
+                992: {
+                    slidesPerView: 3,
+                    spaceBetween: 40
+                }
+            }
+        }); 
+    </script>
+</body>
+
+</html>  -->

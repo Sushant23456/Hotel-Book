@@ -1,0 +1,98 @@
+.booking-form-container  {
+    width: 80%;
+    margin: 50px auto;
+    border-radius: 10px;
+    padding: 20px 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 150px;
+}
+
+.booking-form-container h3 {
+    text-align: center;
+    color: #001F3F;
+    margin-bottom: 20px;
+}
+
+
+.main h2 {
+    text-align: center;
+    color: #001F3F;
+    margin-bottom: 20px;
+}
+
+.input-group-booking {
+    margin-bottom: 20px;
+}
+
+.input-group-booking label {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+
+.input-group-booking label input[type="checkbox"],
+.input-group-booking label input[type="radio"] {
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: auto; /* In case width is being overridden somewhere */
+}
+
+.input-group-booking input,
+.input-group-booking select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #004d40;
+    border-radius: 5px;
+    background-color: white;
+    color: #004d40;
+    font-size: 16px;
+}
+
+
+.input-group-booking textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #004d40;
+    border-radius: 5px;
+    background-color: white;
+    color: #004d40;
+    font-size: 16px;
+}
+
+.input-group-booking button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FFD700;
+    color: #001F3F;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.input-group-booking button:hover {
+    background-color: #FF6B6B;
+}
+
+
+
+.booking-form-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.booking-form-footer a {
+    color: #001F3F;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.booking-form-footer a:hover {
+    color: #FFD700;
+}

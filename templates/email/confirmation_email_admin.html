@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 600px; margin: auto; }
+        .header { background-color: #4CAF50; padding: 10px; text-align: center; color: white; }
+        .content { padding: 20px; }
+        .footer { background-color: #4CAF50; padding: 10px; text-align: center; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Hotel S&P</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{ customer_name }},</p>
+            <p>Your booking at <strong>{{ hotel_name }}</strong> in <strong>{{ hotel_location }}</strong> is confirmed by {{ hotel_name }}.</p>
+            <p><strong>Booking Number:</strong> {{ booking_number }}</p>
+            <p>Check-in Date: <strong>{{ checkin_date }}</strong></p>
+            <p>Check-out Date: <strong>{{ checkout_date }}</strong></p>
+            <p>Total Price: <strong>{{ hotel_price }}</strong></p>
+            <p>Thank you for booking with us. We are looking forward to your stay!</p>
+        </div>
+        <div class="footer">
+            &copy; 2023 Hotel S&P. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+.confirmation-container {
+    background-color: #ffffff; /* White background */
+    border-radius: 8px;       /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Simple shadow */
+    max-width: 600px;         /* Max width for the container */
+    margin: 40px auto;        /* Centering it with automatic margin and some space from the top */
+    padding: 20px;            /* Padding inside the container */
+    text-align: center;       /* Centering the text */
+}
+
+.confirmation-details {
+    border-top: 2px solid #f0f0f0; /* A subtle line at the top of the details section */
+    margin-top: 20px;              /* Margin on top to separate from the title */
+    padding-top: 20px;             /* Padding on top inside the details section */
+}
+
+.confirmation-details p {
+    font-size: 16px;               /* Base font size for paragraphs */
+    color: #333;                   /* Slightly dark grey color for text for better readability */
+    line-height: 1.6;              /* Line height for paragraph spacing */
+    margin-bottom: 10px;           /* Margin at the bottom of each paragraph */
+}
+
+.confirmation-details p:last-child {
+    margin-bottom: 0;              /* Remove margin from the last paragraph */
+}
+
+.return-home a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #0056b3; /* Example primary color */
+    color: #ffffff;            /* White text */
+    text-decoration: none;     /* No underline */
+    border-radius: 4px;        /* Rounded corners for the button */
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.return-home a:hover {
+    background-color: #003d82; /* Darker shade on hover */
+}
+

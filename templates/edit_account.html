@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/js/chat.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="/static/css/orange_theme.css">
+    <link rel="stylesheet" href="/static/css/result_custom.css">
+    <link rel="stylesheet" href="/static/css/chatbot.css">
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="/static/images/logo.png" alt="logo" style="height: 50px; width: 50px;">
+                </a>
+                <div class="account-links ml-auto">
+                    {% if username %}
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            style="background-color: white; color: black; opacity: 0.7;">
+                            {{ username }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ url_for('bookings') }}">View my Bookings</a>
+                            <a class="dropdown-item" href="{{ url_for('edit_account') }}">Edit Account</a>
+                            <a class="dropdown-item" href="{{ url_for('logout') }}">Log Out</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-secondary">Sign Up</a>
+                    {% endif %}
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="{{ url_for('search_page') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('check_booking') }}">Find Booking</a></li>
+                        <li class="nav-item"><a class="nav-link" href="rooms.html">Types of Rooms</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="container mt-4">
+        <h1>Edit Account</h1>
+        <form action="{{ url_for('edit_account') }}" method="post">
+            <!-- CSRF Token if using Flask-WTF -->
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" value="{{ user_details.username }}" required>
+            </div>
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name" class="form-control" value="{{ user_details.first_name }}">
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" class="form-control" value="{{ user_details.last_name }}">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" class="form-control" value="{{ user_details.phone }}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" value="{{ user_details.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">New Password:</label>
+                <input type="password" id="password" name="password" class="form-control">
+                <small class="form-text text-muted">Leave blank if you do not wish to change your password.</small>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Update Account</button>
+            </div>
+        </form>
+    </main>
+    
+</body>
+
+<footer class="bg-light text-center text-lg-start mt-5">
+    <div class="text-center p-3" style="background-color: #ff7f50;">
+        &copy; 2023 Hotel S&P. All rights reserved.
+    </div>
+</footer>
+
+
+</html>

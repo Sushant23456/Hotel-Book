@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+}
+
+.bookings-list {
+    max-width: 600px;
+    margin: auto;
+}
+
+.booking-entry {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.booking-entry p {
+    margin: 10px 0;
+    line-height: 1.6;
+    color: #444;
+}
+
+.booking-entry p:first-child {
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* If you have buttons or links, you can style them as well */
+.button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}

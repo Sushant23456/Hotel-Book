@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reservations</title>
+</head>
+<body>
+    <h1>Reservations</h1>
+    <table>
+        <tr>
+            <th>Hotel Name</th>
+            <th>User ID</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
+        </tr>
+        {% for reservation in reservations %}
+        <tr>
+            <td>{{ reservation.hotel_name }}</td>
+            <td>{{ reservation.user_id }}</td>
+            <td>{{ reservation.checkin_date }}</td>
+            <td>{{ reservation.checkout_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

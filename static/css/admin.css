@@ -1,0 +1,128 @@
+/* admin.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+nav ul li {
+    float: left;
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: #111;
+}
+
+.content {
+    margin: 15px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.container{
+    margin-bottom: 100px;
+}
+
+.messages-container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Individual message styling */
+.message {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+}
+
+/* Last message doesn't need a bottom border */
+.message:last-child {
+    border-bottom: none;
+}
+
+/* Styling for the message subject */
+.message h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+/* Styling for sender information */
+.message p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+/* Highlighting the sender's name and email */
+.message p strong {
+    color: #007bff;
+}
+
+.message form {
+    margin-top: 10px;
+}
+
+.message textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.message button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message button:hover {
+    background-color: #0056b3;
+}
+
+.replied-sign {
+    color: green;
+    font-weight: bold;
+}
+
+
+footer {
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

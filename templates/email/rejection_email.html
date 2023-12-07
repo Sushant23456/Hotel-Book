@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 600px; margin: auto; }
+        .header { background-color: #ff6347; padding: 10px; text-align: center; color: white; }
+        .content { padding: 20px; }
+        .footer { background-color: #ff6347; padding: 10px; text-align: center; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Hotel S&P</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{ customer_name }},</p>
+            <p>We regret to inform you that your booking at <strong>{{ hotel_name }}</strong> in <strong>{{ hotel_location }}</strong> cannot be accommodated at this time.</p>
+            <p>Check-in Date: <strong>{{ checkin_date }}</strong></p>
+            <p>Check-out Date: <strong>{{ checkout_date }}</strong></p>
+            <p>Price: <strong>{{ hotel_price }}</strong></p>
+            <p>We apologize for any inconvenience caused and hope to serve you in the future.</p>
+        </div>
+        <div class="footer">
+            &copy; 2023 Hotel S&P. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

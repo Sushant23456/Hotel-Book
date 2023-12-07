@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Messages</title>
+    <link rel="stylesheet" href="/static/css/admin.css"> 
+</head>
+
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('admin_hotels') }}">Manage Hotels</a></li>
+                <li><a href="{{ url_for('admin_bookings') }}">View Bookings</a></li>
+                <li><a href="{{ url_for('add_hotel') }}">Add Hotel</a></li>
+                <li><a href="{{ url_for('add_room') }}">Add Room</a></li>
+                <li><a href="{{ url_for('admin_messages') }}" class="active">Messages</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content-container">
+        <main class="container">
+            <h2>Messages from Hotel Bookers</h2>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for message in messages %}
+                            <div class="flash-message">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% if messages %}
+            <div class="messages-container">
+                {% for message in messages %}
+                <div class="message">
+                    <h3>{{ message.subject }}</h3>
+                    <p><strong>From:</strong> {{ message.name }} ({{ message.email }})</p>
+                    <p>{{ message.content }}</p>
+
+                    <form action="{{ url_for('send_reply', message_id=message.id) }}" method="post">
+                        <textarea name="reply" rows="3" placeholder="Type your reply here"></textarea>
+                        <input type="hidden" name="recipient_email" value="{{ message.email }}">
+                        <button type="submit">Send Reply</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>No messages to display.</p>
+            {% endif %}
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Hotel Management System</p>
+    </footer>
+
+    <style>
+        .flash-messages {
+            color: red;
+
+        }
+    </style>
+</body>
+
+</html>

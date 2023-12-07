@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="/static/css/result_custom.css">
+    <link rel="stylesheet" href="/static/css/orange_theme.css">
+    <!-- <link rel="stylesheet" href="/static/css/results.css">  -->
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="/static/images/logo.png" alt="logo" style="height: 50px; width: 50px;">
+                </a>
+                <div class="account-links ml-auto">
+                    {% if username %}
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            style="background-color: white; color: black; opacity: 0.7;">
+                            {{ username }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ url_for('bookings') }}">View my Bookings</a>
+                            <a class="dropdown-item" href="{{ url_for('edit_account') }}">Edit Account</a>
+                            <a class="dropdown-item" href="{{ url_for('logout') }}">Log Out</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-secondary">Sign Up</a>
+                    {% endif %}
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="{{ url_for('search_page') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('check_booking') }}">Find Booking</a></li>
+                        <li class="nav-item"><a class="nav-link" href="rooms.html">Types of Rooms</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container mt-4">
+        <h1>Hotel Results</h1>
+        <br>
+        <ul class="list-unstyled">
+            {% for hotel in hotels %}
+            <li class="media mb-4">
+                <img src="{{ url_for('static', filename=hotel.image_path) }}" class="mr-3" alt="Hotel image" style="width: 400px;">
+                <div class="media-body">
+                    <h3 class="mt-0 mb-1">{{ hotel.name }}</h3>
+                    <hr>
+                    <p>Location: {{ hotel.location }}</p>
+                    <p>Starting Price: ${{ hotel.price }}</p>
+                    <p>Reviews: {{ hotel.reviews }}/10 stars</p>
+                    <p>Check-In: {{ checkin_date }}</p>
+                    <p>Check-out: {{ checkout_date }}</p>
+
+                        <input type="hidden" name="hotel_name" value="{{ hotel.name }}">
+                        <input type="hidden" name="hotel_location" value="{{ hotel.location }}">
+                        <input type="hidden" name="hotel_price" value="{{ hotel.price }}">
+                        <input type="hidden" name="hotel_reviews" value="{{ hotel.reviews }}">
+                        <input type="hidden" name="checkin_date" value="{{ checkin_date }}"> 
+                        <input type="hidden" name="checkout_date" value="{{ checkout_date }}">
+                        <a href="{{ url_for('view_rooms', hotel_id=hotel.id, checkin_date=checkin_date, checkout_date=checkout_date) }}" class="btn btn-info">View Rooms Availability</a>
+                        
+                        <br><br>
+
+                    <!-- {% if is_admin %}
+                    <div class="mt-2">
+                        <a href="{{ url_for('edit_hotel', hotel_id=hotel.id) }}" class="btn btn-warning">Edit</a>
+                        <a href="{{ url_for('delete_hotel', hotel_id=hotel.id) }}" class="btn btn-danger">Delete</a>
+                    </div>
+                    {% endif %} -->
+                </div>
+            </li>
+            {% else %}
+            <li>No hotels found in the given location.</li>
+            {% endfor %}
+        </ul>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="text-center">Hotel Booking</h1>
+                    <form action="/search" method="get" class="mt-4">
+                        <div class="form-group">
+                            <label for="location">Enter a location:</label>
+                            <input type="text" id="location" name="location" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkin-date">Check-in Date:</label>
+                            <input type="date" id="checkin-date" name="checkin_date" class="form-control" placeholder="yyyy-mm-dd" required>
+    
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-date">Check-out Date:</label>
+                            <input type="text" id="checkout-date" name="checkout_date" class="form-control" placeholder="yyyy-mm-dd" required>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Search for Hotels</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="text-center p-3" style="background-color: #ff7f50;">
+            &copy; 2023 Hotel S&P. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <script>
+    document.getElementById('checkin-date', 'checkout-date').addEventListener('change', function() {
+    var date = new Date(this.value);
+    var formattedDate = date.toLocaleDateString('en-GB');
+    console.log(formattedDate);
+
+    
+});
+
+flatpickr("#checkin-date", {
+    altInput: true,
+    altFormat: "F j, Y", 
+    dateFormat: "Y-m-d", 
+  });
+
+  flatpickr("#checkout-date", {
+    altInput: true,
+    altFormat: "F j, Y", 
+    dateFormat: "Y-m-d", 
+  });
+
+
+    </script>
+
+
+<style>
+    hr {
+        border-top: 3px solid #ff7f50;
+        width: 100%;
+    }
+</style>
+</body>
+</html>
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/results.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/static/images/logo.png" alt="logo">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="search.html">Home</a></li>
+                <li><a href="hotels.html">Find Hotels</a></li>
+                <li><a href="rooms.html">Types of Rooms</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            {% if username %}
+            <div class="account-links">
+                <button class="account-button">{{ username }}</button>
+                <div class="account-dropdown">
+                    <a href="{{ url_for('bookings') }}">View my Bookings</a>
+                    <a href="{{ url_for('logout') }}">Log Out</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="auth-links">
+                <a href="login.html" class="login">Login</a>
+                <a href="register.html" class="register">Register</a>
+            </div>
+            {% endif %}
+        </nav>
+    </header>
+    <div class="result-container">
+        <h1>Hotel Results</h1>
+        <ul class="hotel-listings">
+            {% for hotel in hotels %}
+            <li class="hotel-deals">
+                <img src="{{ url_for('static', filename=hotel.image_path) }}" alt="Hotel image">
+                <div class="hotel-info">
+                    <h2>{{ hotel.name }}</h2>
+                    <p>Location: {{ hotel.location }}</p>
+                    <p>Starting Price: ${{ hotel.price }}</p>
+                    <p>Reviews: {{ hotel.reviews }}/10 stars</p>
+                    <p>Check-In: {{ checkin_date }}</p>
+                    <p>Check-out: {{ checkout_date }}</p>
+                        <input type="hidden" name="hotel_name" value="{{ hotel.name }}">
+                        <input type="hidden" name="hotel_location" value="{{ hotel.location }}">
+                        <input type="hidden" name="hotel_price" value="{{ hotel.price }}">
+                        <input type="hidden" name="hotel_reviews" value="{{ hotel.reviews }}">
+                        <input type="hidden" name="checkin_date" value="{{ checkin_date }}"> 
+                        <input type="hidden" name="checkout_date" value="{{ checkout_date }}">
+                        <a href="{{ url_for('view_rooms', hotel_id=hotel.id, checkin_date=checkin_date, checkout_date=checkout_date) }}" class="view-rooms-button">View Rooms</a>
+                </div>
+                {% if is_admin %}
+                <div class="admin-buttons">
+                    <a href="{{ url_for('edit_hotel', hotel_id=hotel.id) }}" class="edit-button">Edit</a>
+                    <a href="{{ url_for('delete_hotel', hotel_id=hotel.id) }}" class="delete-button">Delete</a>
+                </div>
+                {% endif %}
+            </li>
+            {% else %}
+            <li>No hotels found in the given location.</li>
+            {% endfor %}
+        </ul>
+
+        <a href="/">New Search</a>
+    </div>
+    <footer>
+        <p>&copy; 2023 Hotel S&P. All rights reserved.</p>
+    </footer>
+</body>
+</html> -->

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.username }}'s Profile</title>
+</head>
+
+<body>
+    <!-- Display user's bookings -->
+<h2>Your Bookings</h2>
+<div id="bookings-list">
+  <!-- Loop through bookings and display them -->
+  {% for booking in bookings %}
+  <div class="booking">
+    <h3>{{ booking.hotel_name }}</h3>
+    <p>Location: {{ booking.hotel_location }}</p>
+    <p>Check-in: {{ booking.checkin_date }}</p>
+    <p>Check-out: {{ booking.checkout_date }}</p>
+  </div>
+  {% else %}
+  <p>No bookings found.</p>
+  {% endfor %}
+</div>
+
+<!-- Booking form -->
+<h2>Book a Hotel</h2>
+<form method="post" action="{{ url_for('book_hotel') }}">
+  <input type="text" name="hotel_name" placeholder="Hotel Name" required>
+  <input type="text" name="hotel_location" placeholder="Location" required>
+  <input type="number" step="0.01" name="hotel_price" placeholder="Price" required>
+  <input type="date" name="checkin_date" placeholder="Check-in Date" required>
+  <input type="date" name="checkout_date" placeholder="Check-out Date" required>
+  <button type="submit">Book Hotel</button>
+</form>
+
+</body>
+
+</html>

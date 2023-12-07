@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/static/css/admin.css"> 
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('admin_hotels') }}">Manage Hotels</a></li>
+                <li><a href="{{ url_for('admin_bookings') }}">View Bookings</a></li>
+                <li><a href="{{ url_for('add_hotel') }}">Add Hotel</a></li>
+                <li><a href="{{ url_for('add_room') }}">Add Room</a></li>
+                <li><a href="{{ url_for('admin_messages') }}">Messages</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+
+        <h2>Welcome, Admin!</h2>
+        <p>Here are some quick stats:</p>
+        <ul>
+            <b>// sample for now!</b>
+            <li>Number of Users: {{ num_users }}</li>
+            <li>Number of Hotels: {{ num_hotels }}</li>
+            <li>Number of Rooms: {{ num_rooms }}</li>
+            <li>Number of Bookings: {{ num_bookings }}</li>
+        </ul>
+
+        <section id="messages">
+            
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Hotel Management System</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login or Guest</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/orange_theme.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="/static/images/logo.png" alt="logo" style="height: 50px; width: 50px;">
+                </a>
+                <div class="account-links ml-auto">
+                    {% if username %}
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            style="background-color: white; color: black; opacity: 0.7;">
+                            {{ username }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ url_for('bookings') }}">View my Bookings</a>
+                            <a class="dropdown-item" href="{{ url_for('logout') }}">Log Out</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-secondary">Sign Up</a>
+                    {% endif %}
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="{{ url_for('search_page') }}">Home</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('check_booking') }}">Find Booking</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="rooms.html">Types of Rooms</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container my-5">
+        <div class="row">
+            <!-- Returning Customers - Left Side -->
+            <div class="col-md-6">
+                <div class="border p-4">
+                    <h3 class="text-center mb-3">Returning Customers</h3>
+                    <p class="text-center">Sign in for faster checkout.</p>
+                    <form action="{{ url_for('login') }}" method="post">
+                        <input type="hidden" name="next"
+                            value="{{ url_for('booking_form', room_id=request.args.get('room_id'), checkin_date=request.args.get('checkin_date'), checkout_date=request.args.get('checkout_date')) }}">
+                        <div class="form-group">
+                            <label for="username_or_email">Username or Email:</label>
+                            <input type="text" id="username_or_email" name="username_or_email" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary"
+                                style="width: 60%; margin: 6px;">Login</button>
+                        </div>
+                        <div class="form-group text-center">
+                            <p class="mt-2"><a href="{{ url_for('forgot_password') }}">Forgot your password?</a></p>
+                            <a href="{{ url_for('register') }}" style="margin-top: 10px;">Create an Account</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="col-md-1 d-flex align-items-center justify-content-center">
+                <span>or</span>
+            </div>
+
+            <!-- New Customers - Right Side -->
+            <div class="col-md-5">
+                <div class="border p-4">
+                    <h3 class="text-center mb-3">New Customers</h3>
+                    <p class="text-center">Don't have an account? No problem, you can check out as a guest. You'll have
+                        the option to create an account during checkout.</p>
+                    <div class="text-center">
+                        {% if room_id and checkin_date and checkout_date %}
+                        <a href="{{ url_for('booking_form', room_id=room_id, checkin_date=checkin_date, checkout_date=checkout_date, guest='true') }}"
+                            class="btn btn-secondary">Continue as Guest</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</html>

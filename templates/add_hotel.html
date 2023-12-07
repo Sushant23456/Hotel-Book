@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Hotel</title>
+    <link rel="stylesheet" href="/static/css/add_hotel.css">
+</head>
+<body>
+    <h1>Add Hotel</h1>
+    
+    <form method="post" enctype="multipart/form-data">
+        <label for="name">Hotel Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+
+        <label for="location">Location:</label><br>
+        <input type="text" id="location" name="location"><br>
+
+        <label for="price">Price:</label><br>
+        <input type="text" id="price" name="price"><br>
+
+        <label for="reviews">Reviews:</label><br>
+        <input type="text" id="reviews" name="reviews"><br>
+
+        <label for="hotel_image">Hotel Image:</label><br>
+        <input type="file" id="hotel_image" name="hotel_image" accept="image/*"><br>
+
+        <input type="submit" value="Add Hotel">
+    </form>
+
+    <a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a>
+</body>
+</html>

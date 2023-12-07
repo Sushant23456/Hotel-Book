@@ -1,0 +1,62 @@
+.login-form-container {
+    background-color: #ffffff; /* White background for clarity */
+    padding: 25px; /* Padding for some space inside the container */
+    margin-top: 5vh; /* Push the container a bit down from the top */
+    width: 90%; /* Set a max-width to keep the form from expanding too wide */
+    max-width: 500px; /* Also, a max-width for larger screens */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 10px; /* Rounded corners for a modern look */
+    display: flex; /* Using flex to center the form vertically and horizontally */
+    flex-direction: column; /* Stack the form elements */
+    align-items: center; /* Center-align the form items horizontally */
+    justify-content: center; /* Center-align the form items vertically */
+    margin-left: auto; /* Auto margins for horizontal centering */
+    margin-right: auto; /* Auto margins for horizontal centering */
+}
+
+.input-group-login {
+    width: 100%; /* Full width of the container */
+    margin-bottom: 15px; /* Space between input groups */
+}
+
+.input-group-login label {
+    display: block; /* Ensure the label is on top of the input */
+    margin-bottom: 5px; /* Space between label and input */
+}
+
+.input-group-login input {
+    width: 400px; /* Full width minus padding */
+    padding: 10px; /* Comfortable padding inside the inputs */
+    border: 1px solid #cccccc; /* A subtle border */
+    border-radius: 5px; /* Rounded borders for the inputs */
+}
+
+.input-group-login-button button {
+    width: 70%; /* Button should expand to the full width */
+    padding: 10px; /* Padding to make the button sizeable */
+    border: none; /* No border for the button */
+    border-radius: 5px; /* Rounded corners for the button */
+    background-color: #FFD700; /* The button color to match your theme */
+    color: #001F3F; /* Text color for the button */
+    cursor: pointer; /* Cursor to indicate it's clickable */
+    margin-top: 30px; /* Margin on top for spacing */
+}
+
+.input-group-forgot-password{
+    width: 40%; 
+    margin: 0 auto; 
+    margin-top: -10px;
+}
+
+/* You can comment out or remove any existing button:hover styles to prevent conflicts */
+.input-group-login button:hover {
+    background-color: #FF6B6B; /* Hover color for the button */
+}
+
+.input-group-login-button button:hover {
+    background-color: #FF6B6B;
+}
+
+.flash-message{
+    color: red;
+}

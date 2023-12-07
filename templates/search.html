@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/js/chat.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="/static/css/orange_theme.css">
+    <link rel="stylesheet" href="/static/css/result_custom.css">
+    <link rel="stylesheet" href="/static/css/chatbot.css">
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="/static/images/logo.png" alt="logo" style="height: 50px; width: 50px;">
+                </a>
+                <div class="account-links ml-auto">
+                    {% if username %}
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            style="background-color: white; color: black; opacity: 0.7;">
+                            {{ username }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ url_for('bookings') }}">View my Bookings</a>
+                            <a class="dropdown-item" href="{{ url_for('edit_account') }}">Edit Account</a>
+                            <a class="dropdown-item" href="{{ url_for('logout') }}">Log Out</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-secondary">Sign Up</a>
+                    {% endif %}
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="{{ url_for('search_page') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('check_booking') }}">Find Booking</a></li>
+                        <li class="nav-item"><a class="nav-link" href="rooms.html">Types of Rooms</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="text-center">Hotel Booking</h1>
+                <form action="/search" method="get" class="mt-4">
+                    <div class="form-group">
+                        <label for="location">Enter a location:</label>
+                        <input type="text" id="location" name="location" class="form-control" autocomplete="off"
+                            required>
+                        <div id="citySuggestions" class="list-group"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkin-date">Check-in Date:</label>
+                        <input type="date" id="checkin-date" name="checkin_date" class="form-control"
+                            placeholder="yyyy-mm-dd" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout-date">Check-out Date:</label>
+                        <input type="text" id="checkout-date" name="checkout_date" class="form-control"
+                            placeholder="yyyy-mm-dd" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Search for Hotels</button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="text-center">Hot Hotel Deals</h2>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/static/images/HotelA-offer1.jpeg" class="card-img-top" alt="Hotel 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Hotel A</h5>
+                        <p class="card-text">Special discount for this week!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/static/images/hotelA-offer2.jpeg" class="card-img-top" alt="Hotel 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Hotel B</h5>
+                        <p class="card-text">Limited time offer!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/static/images/hotelA-offer3.jpg" class="card-img-top" alt="Hotel 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Hotel C</h5>
+                        <p class="card-text">Save up to 30%!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="text-center p-3" style="background-color: #ff7f50;">
+            &copy; 2023 Hotel S&P. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.getElementById('checkin-date', 'checkout-date').addEventListener('change', function () {
+            var date = new Date(this.value);
+            var formattedDate = date.toLocaleDateString('en-GB');
+            console.log(formattedDate);
+
+
+        });
+
+        flatpickr("#checkin-date", {
+            altInput: true,
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d",
+        });
+
+        flatpickr("#checkout-date", {
+            altInput: true,
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d",
+        });
+
+        fetch('/static/data/cities.json')
+            .then(response => response.json())
+            .then(data => {
+                const locationInput = document.getElementById('location');
+                const suggestionsContainer = document.getElementById('citySuggestions');
+
+                locationInput.oninput = function () {
+                    const userInput = this.value.toLowerCase();
+                    suggestionsContainer.innerHTML = '';
+
+                    if (userInput.length < 3) return;
+
+
+                    Object.keys(data).forEach(state => {
+                        data[state].forEach(city => {
+                            if (city.toLowerCase().includes(userInput)) {
+                                const div = document.createElement('div');
+                                div.className = 'list-group-item list-group-item-action';
+                                div.textContent = city + ', ' + state;
+                                div.onclick = function () {
+                                    locationInput.value = this.textContent;
+                                    suggestionsContainer.innerHTML = '';
+                                };
+                                suggestionsContainer.appendChild(div);
+                            }
+                        });
+                    });
+                };
+            })
+            .catch(error => console.error('Error loading cities:', error));
+
+    </script>
+    
+<div id="chatbot" class="chatbot">
+    <div class="chatbot-header">
+        <span>Chat with Us!</span>
+        <button onclick="toggleChatbot()">X</button>
+    </div>
+    <p>Bot: How can I help you!</p>
+    <div id="chatbot-messages" class="chatbot-messages"></div>
+    <input type="text" id="chatbot-input" placeholder="Type a message..." onkeypress="sendMessage(event)">
+</div>
+
+
+<button id="chatbot-toggle" onclick="toggleChatbot()">Chat with Us</button>
+
+</body>
+
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="/static/images/logo.png" alt="logo">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="search.html" class="active">Home</a></li>
+                <li><a href="hotels.html">Find Hotels</a></li>
+                <li><a href="rooms.html">Types of Rooms</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="account-links">
+                {% if username %}
+                <button class="account-button">{{ username }}</button>
+                <div class="account-dropdown">
+                    <a href="{{ url_for('bookings') }}">View my Bookings</a>
+                    <a href="{{ url_for('logout') }}">Log Out</a> 
+                </div>
+                {% else %}
+                <button class="account-button">My Account</button>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <div class="background-container">
+        <div class="content-wrapper">
+            <div class="main-content">
+                <div class="container">
+                    <h1>Hotel Booking</h1>
+                    <form action="/search" method="get">
+                        <div class="input-group">
+                            <label for="location">Enter a location:</label>
+                            <input type="text" id="location" name="location" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="checkin-date">Check-in Date:</label>
+                            <input type="date" id="checkin-date" name="checkin_date" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="checkout-date">Check-out Date:</label>
+                            <input type="date" id="checkout-date" name="checkout_date" required>
+                        </div>
+                        <div class="input-group">
+                            <button type="submit">Search for Hotels</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="deals-container">
+            <h2>Hot Hotel Deals</h2>
+            <div class="hotel-deal">
+                <img src="/static/images/HotelA-offer1.jpeg" alt="Hotel 1">
+                <h3>Hotel A</h3>
+                <p>Special discount for this week!</p>
+            </div>
+            <div class="hotel-deal">
+                <img src="/static/images/hotelA-offer2.jpeg" alt="Hotel 2">
+                <h3>Hotel B</h3>
+                <p>Limited time offer!</p>
+            </div>
+            <div class="hotel-deal">
+                <img src="/static/images/hotelA-offer3.jpg" alt="Hotel 3">
+                <h3>Hotel C</h3>
+                <p>Save up to 30%!</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 Hotel S&P. All rights reserved.</p>
+        </footer>
+
+        <script>
+            document.querySelector('.account-button').addEventListener('click', function () {
+                console.log('Button clicked');
+                document.querySelector('.account-dropdown').classList.toggle('show');
+            });
+
+        </script>
+</body>
+
+</html> -->

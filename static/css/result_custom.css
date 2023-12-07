@@ -1,0 +1,37 @@
+:root {
+    --primary: #ff7f50; /* Coral orange for primary color */
+    --secondary: #ffa07a; /* Light salmon for secondary color */
+    --info: #ff8c00; /* Dark orange for info */
+    --warning: #ff4500; /* Orange red for warning */
+    --danger: #ff6347; /* Tomato for danger */
+    --success: #ffa500; /* Orange for success */
+}
+
+.navbar-light {
+    background-color: var(--primary);
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: black;
+}
+
+.navbar-light .navbar-brand, .navbar-light .navbar-toggler {
+    color: white;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+}
+
+.footer {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* Additional custom styles for buttons, backgrounds, etc., can be added here */
