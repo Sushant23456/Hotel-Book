@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check Booking</title>
+    <title>Booking Details</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/orange_theme.css">
 </head>
@@ -49,39 +49,46 @@
     </header>
 
     <main class="container mt-4">
-        <h1 class="text-center mb-4">Check Booking</h1>
-
-        <form method="post" class="mb-3">
-            <div class="form-group">
-                <label for="search_type">Search by:</label>
-                <select name="search_type" id="search_type" class="form-control">
-                    <option value="email">Email</option>
-                    <option value="booking_number">Booking Number</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <input type="text" name="search_value" class="form-control" placeholder="Enter email or booking number" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div>
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-        {% endwith %}
+        <h2 class="text-center mb-4">Guest Booking Confirmation</h2>
+        <div class="booking-entry card mb-3">
+            {% if booking %}
+                <div class="card-body">
+                    <p>Name: {{ booking.customer_name }}</p>
+                    <p>Email: {{ booking.email }}</p>
+                    <p>Phone Number: {{ booking.phone }}</p>
+                    <p>Location: {{ booking.hotel_location }}</p>
+                    <p>Room Type: {{ booking.room_type }}</p>
+                    <p>Room Price: {{ booking.room_price }}</p>
+                    <p>Check-in Date: {{ booking.checkin_date }}</p>
+                    <p>Check-out Date: {{ booking.checkout_date }}</p>
+                    <p>Booking Number: {{ booking.booking_number }}</p>
+                            <p>Status: 
+                                {% if booking.booking_status == 'confirmed' %}
+                                    <span class="text-success">✔ Confirmed</span>
+                                {% elif booking.booking_status == 'rejected' %}
+                                    <span class="text-danger">✘ Rejected</span>
+                                {% else %}
+                                    <span class="text-warning">⏳ Pending Approval</span>
+                                {% endif %}
+                            </p>
+                </div>
+            {% else %}
+                <p class="text-center">No booking details available.</p>
+            {% endif %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Search</a>
+        </div>
     </main>
-    <div class="text-center mt-4">
-        <a href="/" class="btn btn-primary">Go Back to Search Page</a>
-    </div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="text-center p-3" style="background-color: #ff7f50;">
+            &copy; 2023 Hotel S&P. All rights reserved.
+        </div>
+    </footer>
 </body>
 </html>

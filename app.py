@@ -735,16 +735,14 @@ def reject_booking(booking_id):
 
 @app.route('/book', methods=['POST'])
 def book_hotel():
-    print("Booking request received")
+
 
     if current_user.is_authenticated:
         user_id = current_user.id
         is_guest = False
-        print(f"Authenticated user booking, User ID: {user_id}")
     else:
         user_id = None
         is_guest = True
-        print("Guest user booking")
 
     hotel_id = request.form.get('hotel_id')
     room_id = request.form.get('room_id')
@@ -760,21 +758,15 @@ def book_hotel():
     room_price = request.form.get('room_price')
     
     booking_number = generate_booking_number()
-    print(f"Generated Booking Number: {booking_number}")
-
-    print("Form data:", request.form)
 
     if not hotel_id or not room_id:
-        print("Missing hotel or room information")
         flash('Missing hotel or room information.', 'error')
         return redirect(url_for('index'))
     
     try:
         checkin_datetime = datetime.strptime(checkin_date, '%Y-%m-%d %H:%M:%S')
         checkout_datetime = datetime.strptime(checkout_date, '%Y-%m-%d %H:%M:%S')
-        print("Parsed dates successfully")
     except ValueError:
-        print("Invalid date format")
         flash('Invalid date format.', 'error')
         return redirect(url_for('booking_form', room_id=room_id))
 
@@ -782,14 +774,12 @@ def book_hotel():
     cursor = connection.cursor()
 
     try:
-        print("Attempting to insert booking into database")
         cursor.execute(
             "INSERT INTO bookings (user_id, hotel_id, room_id, checkin_date, checkout_date, hotel_name, hotel_location, hotel_price, customer_name, email, phone, booking_number, is_guest, room_type, room_price) "
             "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
             (user_id, hotel_id, room_id, checkin_datetime, checkout_datetime, hotel_name, hotel_location, hotel_price, customer_name, email, phone, booking_number, is_guest, room_type, room_price)
         )
         connection.commit()
-        print("Booking inserted successfully, Booking number:", booking_number)
         flash(f'Your booking has been confirmed! Booking number: {booking_number}', 'success')
 
         booking_details = {
@@ -808,20 +798,41 @@ def book_hotel():
         msg.body = f"Your booking is confirmed. Booking number: {booking_number}. Please check the attached details."
         msg.html = html_body
         mail.send(msg)
+        
+        if is_guest:
+            session['guest_booking_details'] = {
+            'booking_number': booking_number,
+            'customer_name': customer_name,
+            'email': email,
+            'phone': phone,
+            'hotel_location': hotel_location,
+            'hotel_price': hotel_price,
+            'room_type': room_type,
+            'room_price': room_price,
+            'checkin_date': checkin_date,
+            'checkout_date': checkout_date
+        }
+            return redirect(url_for('guest_confirmation'))
 
     except mysql.connector.Error as err:
-        print(f"Database error: {err}")
         flash('An error occurred while booking the hotel.', 'error')
         return redirect(url_for('booking_form', room_id=room_id))
     finally:
         cursor.close()
         connection.close()
-
-    print("Redirecting to bookings page")
     return redirect(url_for('bookings'))
 
 def generate_booking_number():
     return f"BK-{random.randint(1000, 9999)}-{int(datetime.now().timestamp())}"
+
+@app.route('/guest_confirmation')
+def guest_confirmation():
+    if 'guest_booking_details' in session:
+        booking_details = session['guest_booking_details']
+        return render_template('guest_confirmation.html', booking=booking_details)
+    else:
+        flash('No booking details found. Please start a new booking.')
+        return redirect(url_for('index'))
 
 
 # @app.route('/admin/login', methods=['GET', 'POST'])
